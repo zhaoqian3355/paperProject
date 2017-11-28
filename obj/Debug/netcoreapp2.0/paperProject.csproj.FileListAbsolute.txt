@@ -1,0 +1,10 @@
+/Users/zhaoqian/Documents/OpenSource/paperProject/bin/Debug/netcoreapp2.0/paperProject.deps.json
+/Users/zhaoqian/Documents/OpenSource/paperProject/bin/Debug/netcoreapp2.0/paperProject.runtimeconfig.json
+/Users/zhaoqian/Documents/OpenSource/paperProject/bin/Debug/netcoreapp2.0/paperProject.runtimeconfig.dev.json
+/Users/zhaoqian/Documents/OpenSource/paperProject/bin/Debug/netcoreapp2.0/paperProject.dll
+/Users/zhaoqian/Documents/OpenSource/paperProject/bin/Debug/netcoreapp2.0/paperProject.pdb
+/Users/zhaoqian/Documents/OpenSource/paperProject/obj/Debug/netcoreapp2.0/paperProject.csproj.CoreCompileInputs.cache
+/Users/zhaoqian/Documents/OpenSource/paperProject/obj/Debug/netcoreapp2.0/paperProject.AssemblyInfoInputs.cache
+/Users/zhaoqian/Documents/OpenSource/paperProject/obj/Debug/netcoreapp2.0/paperProject.AssemblyInfo.cs
+/Users/zhaoqian/Documents/OpenSource/paperProject/obj/Debug/netcoreapp2.0/paperProject.dll
+/Users/zhaoqian/Documents/OpenSource/paperProject/obj/Debug/netcoreapp2.0/paperProject.pdb
