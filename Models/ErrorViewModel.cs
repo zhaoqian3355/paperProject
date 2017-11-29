@@ -1,5 +1,3 @@
-using System;
-
 namespace paperProject.Models
 {
     public class ErrorViewModel
