@@ -83,17 +83,17 @@
                         <li>
                             <a class="menuitem">站点数据集</a>
                             <ul class="submenu">
-                                <li><a>火车</a> </li>
-                                <li><a>飞机</a> </li>
-                                <li><a>轮船</a> </li>
+                                <li><a asp-controller="Train" asp-action="Station">火车</a></li>
+                                <li><a asp-controller="Flight" asp-action="Station">飞机</a></li>
+                                <li><a asp-controller="Ship" asp-action="Station">轮船</a></li>
                             </ul>
                         </li>
                         <li>
                             <a class="menuitem">线路数据集</a>
                             <ul class="submenu">
-                                <li><a>火车</a> </li>
-                                <li><a>飞机</a> </li>
-                                <li><a>轮船</a> </li>
+                                <li><a asp-controller="Train" asp-action="Line">火车</a></li>
+                                <li><a asp-controller="Flight" asp-action="Line">飞机</a></li>
+                                <li><a asp-controller="Ship" asp-action="Line">轮船</a></li>
                             </ul>
                         </li>
                     </ul>
