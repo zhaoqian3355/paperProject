@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "航班线路";
+}
+<div>
+    <select>
+        <option>单程</option>
+        <option>返程</option>
+        <option>多程</option>
+    </select>
+    <input type="text" value="上海"/>
+    <input type="text" value="大连"/>
+    <input type="text" value="2017/12/04"/>
+    <input type="text" value="2017/12/04"/>
+</div>
+<table class="data display datatable" id="example">
+    <thead>
+        <tr>
+            <th>航班信息</th>
+            <th>起始地</th>
+            <th>起始地机场</th>
+            <th>目的地</th>
+            <th>目的地机场</th>
+            <th>起飞时间</th>
+            <th>到达时间</th>
+            <th>价格</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script>
+    $.ajax({
+        url: "/Flight/LineData",
+        type: "GET",
+        data: {page:50},
+        success: function (param) {
+            $("#example tbody").empty();
+            for (var i = 0; i < param.length; i++) { 
+                var str = "";
+                var item = param[i];
+                if (i % 2 == 0) {
+                    str += '<tr class="odd">';
+                    str += '            <td class="center">' + item.fn + '</td>';
+                    str += '            <td class="center">' + item.acn + '</td>';
+                    str += '            <td class="center">' + item.apbn + '</td>';
+                    str += '            <td class="center">' + item.dcn + '</td>';
+                    str += '            <td class="center">' + item.dpbn + '</td>';
+                    str += '            <td class="center">' + item.at + '</td>';
+                    str += '            <td class="center">' + item.dt + '</td>';
+                    str += '            <td class="center">' + item.lp + '</td>';
+                    str += '</tr>';
+                } else { 
+                    str += '<tr class="even">';
+                    str += '            <td class="center">' + item.fn + '</td>';
+                    str += '            <td class="center">' + item.acn + '</td>';
+                    str += '            <td class="center">' + item.apbn + '</td>';
+                    str += '            <td class="center">' + item.dcn + '</td>';
+                    str += '            <td class="center">' + item.dpbn + '</td>';
+                    str += '            <td class="center">' + item.at + '</td>';
+                    str += '            <td class="center">' + item.dt + '</td>';
+                    str += '            <td class="center">' + item.lp + '</td>';
+                    str += '</tr>';
+                }
+                $("#example tbody").append(str);
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+</script>
