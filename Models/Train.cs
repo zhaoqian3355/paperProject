@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace paperProject.Models
 {
     public class Train
@@ -14,5 +16,7 @@ namespace paperProject.Models
         public string from_station_telecode{get;set;}
         public string to_station_telecode{get;set;}
         public string IsSelect{get;set;}
+
+        public virtual List<TrainStation> TrainStations { get; set; }
     }
 }

@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using paperProject.Models;
 using paperProject.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace paperProject.Controllers
 {
@@ -23,13 +21,25 @@ namespace paperProject.Controllers
         public IActionResult LineData(int page)
         {
             var trainList = new List<Train>();
-            using (var db = new PaperProjectContext())
+            try
             {
-                trainList = db.Train.Take(page).ToList();
+                using (var db = new PaperProjectContext())
+                {
+                    trainList = db.Train.Take(page).ToList();
+                    trainList.ForEach(k =>
+                    {
+                        k.TrainStations = db.TrainStation.Where(p => k.train_code == p.station_train_code).OrderBy(p => p.station_no).ToList();
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
 
             return Json(trainList);
         }
+
         public IActionResult Station()
         {
             return View();
@@ -47,11 +57,6 @@ namespace paperProject.Controllers
             ViewData["Message"] = "Your contact page.";
 
             return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
