@@ -48,8 +48,11 @@ namespace paperProject
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            Mapper.Initialize(cfg=>cfg.CreateMap<Train,TrainView>());
+            
+            Mapper.Initialize(cfg=>{
+                cfg.CreateMap<Train,TrainView>();
+                cfg.CreateMap<City,CityView>();
+            });
         }
     }
 }

@@ -7,6 +7,7 @@
         <tr>
             <th>所在省</th>
             <th>城市名</th>
+            <th>站点名称</th>
             <th>北纬</th>
             <th>东经</th>
         </tr>
@@ -16,7 +17,7 @@
 </table>
 <script>
     $.ajax({
-        url: "/City/List",
+        url: "/Train/StationData",
         type: "GET",
         data: {page:50},
         success: function (param) {
@@ -27,18 +28,16 @@
                 if (i % 2 == 0) {
                     str += '<tr class="odd">';
                     str += '            <td class="center">' + item.provinceName + '</td>';
-                    str += '            <td class="center">';
-                    str += '                ' + item.cityName;
-                    str += '            </td>';
+                    str += '            <td class="center">' + item.cityName+'</td>';
+                    str += '            <td class="center">' + item.StationName+'</td>';
                     str += '            <td class="center">' + item.latitude + '</td>';
                     str += '            <td class="center">' + item.longitude + '</td>';
                     str += '</tr>';
                 } else { 
                     str += '<tr class="even">';
                     str += '            <td class="center">' + item.provinceName + '</td>';
-                    str += '            <td class="center">';
-                    str += '                ' + item.cityName;
-                    str += '            </td>';
+                    str += '            <td class="center">' + item.cityName+'</td>';
+                    str += '            <td class="center">' + item.StationName+'</td>';
                     str += '            <td class="center">' + item.latitude + '</td>';
                     str += '            <td class="center">' + item.longitude + '</td>';
                     str += '</tr>';

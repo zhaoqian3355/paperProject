@@ -6,6 +6,7 @@
     <thead>
         <tr>
             <th>车次</th>
+            <th>火车类型</th>
             <th>起始站</th>
             <th>出发时间</th>
             <th>终点站</th>
@@ -28,6 +29,7 @@
                 if (i % 2 == 0) {
                     str += '<tr class="odd">';
                     str += '            <td class="center">' + item.train_code + '</td>';
+                    str += '            <td class="center">' + item.trainStations[0].train_class_name + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
                     str += '            <td class="center">' + item.trainStations[0].start_time + '</td>';
                     str += '            <td class="center">' + item.to_station_name + '</td>';
@@ -36,6 +38,7 @@
                 } else { 
                     str += '<tr class="even">';
                     str += '            <td class="center">' + item.train_code + '</td>';
+                    str += '            <td class="center">' + item.trainStations[0].train_class_name + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
                     str += '            <td class="center">' + item.trainStations[0].start_time + '</td>';
                     str += '            <td class="center">' + item.to_station_name + '</td>';

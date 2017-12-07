@@ -48,6 +48,31 @@ namespace paperProject.Controllers
             return View();
         }
 
+        public IActionResult StationData(int page)
+        {
+            var cityList = new List<CityView>();
+            try
+            {
+                using (var db = new PaperProjectContext())
+                {
+                    var list = db.City.Take(page).ToList();
+                    cityList=Mapper.Map<List<CityView>>(list);
+                    cityList.ForEach(k =>
+                    {
+                        var train=db.Train.FirstOrDefault(p=>p.from_station.Contains(k.CityName));
+                        if(train!=null)
+                            k.StationName = train.from_station;
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return Json(cityList);
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
