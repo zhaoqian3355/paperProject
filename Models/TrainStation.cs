@@ -1,4 +1,6 @@
-﻿namespace paperProject.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace paperProject.Models
 {
     public class TrainStation
     {

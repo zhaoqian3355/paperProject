@@ -7,7 +7,9 @@
         <tr>
             <th>车次</th>
             <th>起始站</th>
+            <th>出发时间</th>
             <th>终点站</th>
+            <th>到达时间</th>
         </tr>
     </thead>
     <tbody>
@@ -27,13 +29,17 @@
                     str += '<tr class="odd">';
                     str += '            <td class="center">' + item.train_code + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
+                    str += '            <td class="center">' + item.trainStations[0].start_time + '</td>';
                     str += '            <td class="center">' + item.to_station_name + '</td>';
+                    str += '            <td class="center">' + item.trainStations[item.trainStations.length-1].arrive_time + '</td>';
                     str += '</tr>';
                 } else { 
                     str += '<tr class="even">';
                     str += '            <td class="center">' + item.train_code + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
+                    str += '            <td class="center">' + item.trainStations[0].start_time + '</td>';
                     str += '            <td class="center">' + item.to_station_name + '</td>';
+                    str += '            <td class="center">' + item.trainStations[item.trainStations.length-1].arrive_time + '</td>';
                     str += '</tr>';
                 }
                 $("#example tbody").append(str);

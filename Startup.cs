@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using paperProject.Models;
 using paperProject.Services;
+using paperProject.ViewModels;
 
 namespace paperProject
 {
@@ -45,6 +48,8 @@ namespace paperProject
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            Mapper.Initialize(cfg=>cfg.CreateMap<Train,TrainView>());
         }
     }
 }

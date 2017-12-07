@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using paperProject.Models;
 
-namespace paperProject.Models
+namespace paperProject.ViewModels
 {
-    public class Train
+    public class TrainView
     {
         public int Id{get;set;}
         public string station_train_code{get;set;}
         public string train_no{get;set;}
         public string train_type{get;set;}
+        [Key]
         public string train_code{get;set;}
         public string from_station{get;set;}
         public string from_station_name{get;set;}
@@ -17,5 +19,7 @@ namespace paperProject.Models
         public string from_station_telecode{get;set;}
         public string to_station_telecode{get;set;}
         public string IsSelect{get;set;}
+
+        public List<TrainStation> TrainStations{get;set;}
     }
 }

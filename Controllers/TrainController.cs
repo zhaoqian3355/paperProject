@@ -4,6 +4,8 @@ using paperProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using paperProject.ViewModels;
+using AutoMapper;
 
 namespace paperProject.Controllers
 {
@@ -20,12 +22,13 @@ namespace paperProject.Controllers
         }
         public IActionResult LineData(int page)
         {
-            var trainList = new List<Train>();
+            var trainList = new List<TrainView>();
             try
             {
                 using (var db = new PaperProjectContext())
                 {
-                    trainList = db.Train.Take(page).ToList();
+                    var list = db.Train.Take(page).ToList();
+                    trainList=Mapper.Map<List<TrainView>>(list);
                     trainList.ForEach(k =>
                     {
                         k.TrainStations = db.TrainStation.Where(p => k.train_code == p.station_train_code).OrderBy(p => p.station_no).ToList();
