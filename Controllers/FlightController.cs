@@ -4,6 +4,9 @@ using System.Diagnostics;
 using paperProject.Services;
 using System.Collections.Generic;
 using System.Linq;
+using paperProject.ViewModels;
+using AutoMapper;
+using System;
 
 namespace paperProject.Controllers
 {
@@ -31,6 +34,31 @@ namespace paperProject.Controllers
         public IActionResult Station()
         {
             return View();
+        }
+
+        public IActionResult StationData(int page)
+        {
+            var cityList = new List<CityView>();
+            try
+            {
+                using (var db = new PaperProjectContext())
+                {
+                    var list = db.City.Take(page).ToList();
+                    cityList=Mapper.Map<List<CityView>>(list);
+                    cityList.ForEach(k =>
+                    {
+                        var flight=db.Flight.FirstOrDefault(p=>p.acn==k.CityName);
+                        if(flight!=null)
+                            k.StationName = flight.apbn;
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return Json(cityList.Where(k=>!string.IsNullOrEmpty(k.StationName)).ToList());
         }
 
         public IActionResult About()

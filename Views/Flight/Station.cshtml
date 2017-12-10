@@ -5,11 +5,11 @@
 <table class="data display datatable" id="example">
     <thead>
         <tr>
-            <th>航班信息</th>
-            <th>起飞时间</th>
-            <th>到达时间</th>
-            <th>准点率</th>
-            <th>价格</th>
+            <th>所在省</th>
+            <th>城市名</th>
+            <th>机场名称</th>
+            <th>北纬</th>
+            <th>东经</th>
         </tr>
     </thead>
     <tbody>
@@ -17,9 +17,9 @@
 </table>
 <script>
     $.ajax({
-        url: "/Flight/List",
+        url: "/Flight/StationData",
         type: "GET",
-        data: {page:50},
+        data: {page:150},
         success: function (param) {
             $("#example tbody").empty();
             for (var i = 0; i < param.length; i++) { 
@@ -28,18 +28,16 @@
                 if (i % 2 == 0) {
                     str += '<tr class="odd">';
                     str += '            <td class="center">' + item.provinceName + '</td>';
-                    str += '            <td class="center">';
-                    str += '                ' + item.cityName;
-                    str += '            </td>';
+                    str += '            <td class="center">' + item.cityName+'</td>';
+                    str += '            <td class="center">' + item.stationName+'</td>';
                     str += '            <td class="center">' + item.latitude + '</td>';
                     str += '            <td class="center">' + item.longitude + '</td>';
                     str += '</tr>';
                 } else { 
                     str += '<tr class="even">';
                     str += '            <td class="center">' + item.provinceName + '</td>';
-                    str += '            <td class="center">';
-                    str += '                ' + item.cityName;
-                    str += '            </td>';
+                    str += '            <td class="center">' + item.cityName+'</td>';
+                    str += '            <td class="center">' + item.stationName+'</td>';
                     str += '            <td class="center">' + item.latitude + '</td>';
                     str += '            <td class="center">' + item.longitude + '</td>';
                     str += '</tr>';
