@@ -43,7 +43,7 @@ namespace paperProject.Controllers
             {
                 using (var db = new PaperProjectContext())
                 {
-                    var list = db.City.Take(page).ToList();
+                    var list = db.City.Take(100).ToList();
                     cityList=Mapper.Map<List<CityView>>(list);
                     cityList.ForEach(k =>
                     {
@@ -58,7 +58,7 @@ namespace paperProject.Controllers
 
             }
 
-            return Json(cityList.Where(k=>!string.IsNullOrEmpty(k.StationName)).ToList());
+            return Json(cityList.Where(k=>!string.IsNullOrEmpty(k.StationName)).Take(10).ToList());
         }
 
         public IActionResult About()

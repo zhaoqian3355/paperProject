@@ -32,7 +32,7 @@
     $.ajax({
         url: "/Flight/LineData",
         type: "GET",
-        data: {page:50},
+        data: {page:10},
         success: function (param) {
             $("#example tbody").empty();
             for (var i = 0; i < param.length; i++) { 
