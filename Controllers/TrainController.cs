@@ -59,9 +59,15 @@ namespace paperProject.Controllers
                     cityList=Mapper.Map<List<CityView>>(list);
                     cityList.ForEach(k =>
                     {
-                        var train=db.Train.FirstOrDefault(p=>p.from_station.Contains(k.CityName));
-                        if(train!=null)
-                            k.StationName = train.from_station;
+                        var train=db.Train.Where(p=>p.from_station.Contains(k.CityName)).OrderBy(p=>p.from_station).ToList();
+                        if(train!=null){
+                            var stations="";
+                            train.Select(p=>p.from_station).Distinct().ToList().ForEach(p=>{
+                                stations+=p+"，";
+                            });
+                            
+                            k.StationName = stations.TrimEnd(new char[]{'，'});
+                        }
                     });
                 }
             }

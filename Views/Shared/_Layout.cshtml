@@ -11,7 +11,10 @@
     <!--[if IE 6]><link rel="stylesheet" type="text/css" href="~/css/ie6.css" media="screen" /><![endif]-->
     <!--[if IE 7]><link rel="stylesheet" type="text/css" href="~/css/ie.css" media="screen" /><![endif]-->
     <link href="~/css/table/demo_page.css" rel="stylesheet" type="text/css" />
-    <!-- BEGIN: load jquery -->
+
+    <script src="~/js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.ui.progressbar.min.js" type="text/javascript"></script>
     <script src="~/js/jquery-1.6.4.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="~/js/jquery-ui/jquery.ui.core.min.js"></script>
     <script src="~/js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
@@ -21,9 +24,19 @@
     <script src="~/js/jquery-ui/jquery.ui.mouse.min.js" type="text/javascript"></script>
     <script src="~/js/jquery-ui/jquery.ui.sortable.min.js" type="text/javascript"></script>
     <script src="~/js/table/jquery.dataTables.min.js" type="text/javascript"></script>
+
+    <!-- jQuery dialog end here-->
+    <script src="~/js/jquery-ui/jquery.ui.accordion.min.js" type="text/javascript"></script>
+    <!--Fancy Button-->
+    <script src="~/js/fancy-button/fancy-button.js" type="text/javascript"></script>
+    <script src="~/js/setup.js" type="text/javascript"></script>
+    <!-- Load TinyMCE -->
+    <script src="~/js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
     <!-- END: load jquery -->
     <script type="text/javascript" src="~/js/table/table.js"></script>
     <script src="~/js/setup.js" type="text/javascript"></script>
+
+
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -31,16 +44,22 @@
 
             $('.datatable').dataTable();
             setSidebarHeight();
-            $("#example_info").text("1 到 10 条")
-
+            $("#example_info").text("1 到 10 条");
+            $("#example_filter label").html("<label>搜索: <input type='text'></label>");
+            $("#example_length").html('<label>显示 <select size="1" name="example_length"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> 条</label>')
         });
     </script>
     <style>
-        .prev-next{
+        .prev-next {
             position: absolute;
             bottom: 49px;
             right: 100px;
         }
+
+            .prev-next a {
+                font-weight: bolder;
+                text-decoration: underline
+            }
     </style>
 </head>
 <body>
@@ -74,8 +93,8 @@
         <div class="grid_12">
             <ul class="nav main">
                 <li class="ic-dashboard"><a href="dashboard.html"><span>数据集展示</span></a></li>
-                <li class="ic-form-style"><a href="javascript:"><span>线路查询</span></a></li>
-                <li class="ic-grid-tables"><a href="typography.html"><span>算法比较</span></a></li>
+                <li class="ic-form-style"><a href="/Line/Search?type=1"><span>线路查询</span></a></li>
+                <li class="ic-grid-tables"><a href="/Line/Search?type=2"><span>算法比较</span></a></li>
             </ul>
         </div>
         <div class="clear">
@@ -128,8 +147,10 @@
         </p> -->
     </div>
     <div class="prev-next">
-        <input type="button" value="上一页"/>
-        <input type="button" value="下一页"/>
+        <a>上一页</a>
+        <a>下一页</a>
+        <!-- <input type="button" value="上一页"/>
+        <input type="button" value="下一页"/> -->
     </div>
 </body>
 </html>

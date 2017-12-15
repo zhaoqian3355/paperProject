@@ -1,17 +1,6 @@
 ﻿@{
     ViewData["Title"] = "航班线路";
 }
-<div>
-    <select>
-        <option>单程</option>
-        <option>返程</option>
-        <option>多程</option>
-    </select>
-    <input type="text" value="上海"/>
-    <input type="text" value="大连"/>
-    <input type="text" value="2017/12/04"/>
-    <input type="text" value="2017/12/04"/>
-</div>
 <table class="data display datatable" id="example">
     <thead>
         <tr>
@@ -30,7 +19,7 @@
 </table>
 <script>
     $.ajax({
-        url: "/Flight/LineData",
+        url: "/Line/SearchData",
         type: "GET",
         data: {page:10},
         success: function (param) {
