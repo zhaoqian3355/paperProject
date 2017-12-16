@@ -23,53 +23,15 @@ namespace paperProject.Controllers
 
         public IActionResult SearchData(int page, int type)
         {
-            var cityList = new List<CityView>();
-            if (type == 1)
+            var cityList = new List<SearchLineView>()
             {
-                try
-                {
-                    using (var db = new PaperProjectContext())
-                    {
-                        var list = db.TrainStation.Where(K=>K.station_name.Contains("大连")).ToList();
-                        cityList = Mapper.Map<List<CityView>>(list);
-                        cityList.ForEach(k =>
-                        {
-                            var flight = db.Flight.FirstOrDefault(p => p.acn == k.CityName);
-                            if (flight != null)
-                                k.StationName = flight.apbn;
-                        });
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var db = new PaperProjectContext())
-                    {
-                        var list = db.City.Take(100).ToList();
-                        cityList = Mapper.Map<List<CityView>>(list);
-                        cityList.ForEach(k =>
-                        {
-                            var flight = db.Flight.FirstOrDefault(p => p.acn == k.CityName);
-                            if (flight != null)
-                                k.StationName = flight.apbn;
-                        });
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                }
-            }
-
-
-
-            return Json(cityList.Where(k => !string.IsNullOrEmpty(k.StationName)).Take(10).ToList());
+                new SearchLineView{Id=1,from_station_name="大连",from_train_code="G1251",change_station_name="上海虹桥",to_station_name="嘉兴南",to_station_code="G7383",all_time="12时28分",change_time="1时8分",change_times=1 },
+                new SearchLineView{Id=2,from_station_name="大连",from_train_code="G8001",change_station_name="鞍山西",to_station_name="嘉兴南",to_station_code="G1226",all_time="13时16分",change_time="56分" ,change_times=1},
+                new SearchLineView{Id=3,from_station_name="大连北",from_train_code="G8041",change_station_name="上海虹桥",to_station_name="嘉兴南",to_station_code="G7383",all_time="13时21分",change_time="1时22分",change_times=1 },
+                new SearchLineView{Id=4,from_station_name="大连",from_train_code="G1251",change_station_name="南京南",to_station_name="嘉兴",to_station_code="K1805",all_time="20时27分",change_time="5时2分" ,change_times=1}
+            };
+            
+            return Json(cityList);
         }
 
         public IActionResult Station()

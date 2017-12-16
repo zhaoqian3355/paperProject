@@ -436,8 +436,14 @@ function setDatePicker(containerElement) {
     var datePicker = $('#' + containerElement);
     datePicker.datepicker({
         showOn: "button",
-        buttonImage: "img/calendar.gif",
-        buttonImageOnly: true
+        buttonImage: "/img/calendar.gif",
+        buttonImageOnly: true,
+        showSecond: true,
+        dateFormat: 'dd/mm/yy',
+        timeFormat: 'hh:mm:ss',
+        stepHour: 2,
+        stepMinute: 10,
+        stepSecond: 10
     });
 }
 //setup progressbar

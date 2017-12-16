@@ -6,14 +6,28 @@
     $(document).ready(function () {
         //setupTinyMCE();
         //setupProgressbar('progress-bar');
-        setDatePicker('date-picker');
         setupDialogBox('dialog', 'opener');
-        $('input[type="checkbox"]').fancybutton();
-        $('input[type="radio"]').fancybutton();
+        //$('input[type="checkbox"]').fancybutton();
+        //$('input[type="radio"]').fancybutton();
+        $("#example_info").text("1 到 4 条");
+        $("#example_length").html('<label>显示 <select size="1" name="example_length"><option value="4" selected="selected">4</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> 条</label>');
     });
 </script>
 
-<div>
+<style>
+    .search-row{
+        line-height:35px;
+    }
+    .search-row select{
+        width:80px;
+        height:25px;
+    }
+        .search-row input, label {
+            width: 100px;
+        }
+</style>
+
+<div class="search-row">
     <label>
         出发城市：
         <select>
@@ -23,13 +37,13 @@
     <label>
         出发站点：
     </label>
-    <input type="checkbox" />大连站
-    <input type="checkbox" />大连北
-    <input type="checkbox" />周水子国际机场
-    <input type="checkbox" />大连港
-    <input type="checkbox" />旅顺港
+    <label><input type="checkbox" />大连站</label>
+    <label><input type="checkbox" />大连北</label>
+    <label><input type="checkbox" />周水子国际机场</label>
+    <label><input type="checkbox" />大连港</label>
+    <label><input type="checkbox" />旅顺港</label>
 </div>
-<div>
+<div  class="search-row">
     <label>
         目的城市：
         <select>
@@ -41,9 +55,8 @@
     </label>
     <input type="checkbox" />嘉兴
     <input type="checkbox" />嘉兴南
-    <input type="checkbox" />旅顺港
 </div>
-<div>
+<div class="search-row">
     <label>
         出行方式：
     </label>
@@ -53,50 +66,51 @@
     <input type="checkbox" />飞机
     <input type="checkbox" />轮船
 </div>
-<div>
+<div class="search-row">
     <label>
         换乘选择：
     </label>
-    <input type="radio" />任意
-    <input type="radio" />同站换乘
-    <input type="radio" />同类方式换乘
-    <input type="radio" />飞机
-    <input type="radio" />轮船
+    <input name="change_select" type="radio" />任意
+    <input name="change_select" type="radio" />同站换乘
+    <input name="change_select" type="radio" />同类方式换乘
+    <input name="change_select" type="radio" />飞机
+    <input name="change_select" type="radio" />轮船
 </div>
-<div>
+<div class="search-row" id="startDate">
     <label>
         出行时间：
     </label>
-    <input type="text" id="date-picker" />
+    <input type="text" id="date-picker1" />
     <label>
         到达时间：
     </label>
-    <input type="text" id="date-picker" />
+    <input type="text" id="date-picker2" />
 </div>
 
-<div>
+<div class="search-row">
     <label>
         首要参考值：
     </label>
-    <input type="text" id="date-picker" />
-    <input type="radio" />综合
-    <input type="radio" />出行总花费
-    <input type="radio" />出行总时间
-    <input type="radio" />换乘时间
-    <input type="radio" />换乘次数
+    <input name="condition_select" type="radio" />综合
+    <input name="condition_select" type="radio" />出行总花费
+    <input name="condition_select" type="radio" />出行总时间
+    <input name="condition_select" type="radio" />换乘时间
+    <input name="condition_select" type="radio" />换乘次数
 </div>
 
 <table class="data display datatable" id="example">
     <thead>
         <tr>
-            <th>航班信息</th>
-            <th>起始地</th>
-            <th>起始地机场</th>
-            <th>目的地</th>
-            <th>目的地机场</th>
-            <th>起飞时间</th>
-            <th>到达时间</th>
-            <th>价格</th>
+            <th></th>
+            <th>序号</th>
+            <th>出发站</th>
+            <th>线路</th>
+            <th>中转站</th>
+            <th>线路</th>
+            <th>目的站</th>
+            <th>出行时间</th>
+            <th>换乘时间</th>
+            <th>换乘次数</th>
         </tr>
     </thead>
     <tbody>
@@ -104,7 +118,7 @@
 </table>
 <script>
     $.ajax({
-        url: "/Flight/LineData",
+        url: "/Line/SearchData",
         type: "GET",
         data: {page:10},
         success: function (param) {
@@ -114,25 +128,29 @@
                 var item = param[i];
                 if (i % 2 == 0) {
                     str += '<tr class="odd">';
-                    str += '            <td class="center">' + item.fn + '</td>';
-                    str += '            <td class="center">' + item.acn + '</td>';
-                    str += '            <td class="center">' + item.apbn + '</td>';
-                    str += '            <td class="center">' + item.dcn + '</td>';
-                    str += '            <td class="center">' + item.dpbn + '</td>';
-                    str += '            <td class="center">' + item.at + '</td>';
-                    str += '            <td class="center">' + item.dt + '</td>';
-                    str += '            <td class="center">' + item.lp + '</td>';
+                    str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
+                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + item.from_station_name + '</td>';
+                    str += '            <td class="center">' + item.from_train_code + '</td>';
+                    str += '            <td class="center">' + item.change_station_name + '</td>';
+                    str += '            <td class="center">' + item.to_station_code + '</td>';
+                    str += '            <td class="center">' + item.to_station_name + '</td>';
+                    str += '            <td class="center">' + item.all_time + '</td>';
+                    str += '            <td class="center">' + item.change_time + '</td>';
+                    str += '            <td class="center">' + item.change_times + '</td>';
                     str += '</tr>';
                 } else { 
                     str += '<tr class="even">';
-                    str += '            <td class="center">' + item.fn + '</td>';
-                    str += '            <td class="center">' + item.acn + '</td>';
-                    str += '            <td class="center">' + item.apbn + '</td>';
-                    str += '            <td class="center">' + item.dcn + '</td>';
-                    str += '            <td class="center">' + item.dpbn + '</td>';
-                    str += '            <td class="center">' + item.at + '</td>';
-                    str += '            <td class="center">' + item.dt + '</td>';
-                    str += '            <td class="center">' + item.lp + '</td>';
+                    str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
+                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + item.from_station_name + '</td>';
+                    str += '            <td class="center">' + item.from_train_code + '</td>';
+                    str += '            <td class="center">' + item.change_station_name + '</td>';
+                    str += '            <td class="center">' + item.to_station_code + '</td>';
+                    str += '            <td class="center">' + item.to_station_name + '</td>';
+                    str += '            <td class="center">' + item.all_time + '</td>';
+                    str += '            <td class="center">' + item.change_time + '</td>';
+                    str += '            <td class="center">' + item.change_times + '</td>';
                     str += '</tr>';
                 }
                 $("#example tbody").append(str);

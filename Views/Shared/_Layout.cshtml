@@ -10,11 +10,10 @@
     <link rel="stylesheet" type="text/css" href="~/css/nav.css" media="screen" />
     <!--[if IE 6]><link rel="stylesheet" type="text/css" href="~/css/ie6.css" media="screen" /><![endif]-->
     <!--[if IE 7]><link rel="stylesheet" type="text/css" href="~/css/ie.css" media="screen" /><![endif]-->
-    <link href="~/css/table/demo_page.css" rel="stylesheet" type="text/css" />
-
-    <script src="~/js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
-    <script src="~/js/jquery-ui/jquery.ui.datepicker.min.js" type="text/javascript"></script>
-    <script src="~/js/jquery-ui/jquery.ui.progressbar.min.js" type="text/javascript"></script>
+    <link href="~/css/fancy-button/fancy-button.css" rel="stylesheet" type="text/css" />
+    <!--Jquery UI CSS-->
+    <link href="~/css/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+    <!-- BEGIN: load jquery -->
     <script src="~/js/jquery-1.6.4.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="~/js/jquery-ui/jquery.ui.core.min.js"></script>
     <script src="~/js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
@@ -24,7 +23,21 @@
     <script src="~/js/jquery-ui/jquery.ui.mouse.min.js" type="text/javascript"></script>
     <script src="~/js/jquery-ui/jquery.ui.sortable.min.js" type="text/javascript"></script>
     <script src="~/js/table/jquery.dataTables.min.js" type="text/javascript"></script>
-
+    <!-- END: load jquery -->
+    <!--jQuery Date Picker-->
+    <script src="~/js/jquery-ui/jquery.ui.widget.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.ui.progressbar.min.js" type="text/javascript"></script>
+    <!-- jQuery dialog related-->
+    <script src="~/js/jquery-ui/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.ui.mouse.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.ui.draggable.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.ui.position.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.ui.resizable.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.ui.dialog.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.effects.core.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.effects.blind.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery-ui/jquery.effects.explode.min.js" type="text/javascript"></script>
     <!-- jQuery dialog end here-->
     <script src="~/js/jquery-ui/jquery.ui.accordion.min.js" type="text/javascript"></script>
     <!--Fancy Button-->
@@ -33,26 +46,33 @@
     <!-- Load TinyMCE -->
     <script src="~/js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
     <!-- END: load jquery -->
-    <script type="text/javascript" src="~/js/table/table.js"></script>
     <script src="~/js/setup.js" type="text/javascript"></script>
 
 
     <script type="text/javascript">
 
         $(document).ready(function () {
-            setupLeftMenu();
+            //setupLeftMenu();
+            setupTinyMCE();
+            setupProgressbar('progress-bar');
+            setDatePicker('date-picker1');
+            setDatePicker('date-picker2');
+            setupDialogBox('dialog', 'opener');
+            $('input[type="checkbox"]').fancybutton();
+            $('input[type="radio"]').fancybutton();
 
             $('.datatable').dataTable();
             setSidebarHeight();
             $("#example_info").text("1 到 10 条");
             $("#example_filter label").html("<label>搜索: <input type='text'></label>");
-            $("#example_length").html('<label>显示 <select size="1" name="example_length"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> 条</label>')
+            $("#example_length").html('<label>显示 <select size="1" name="example_length"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> 条</label>');
+            
         });
     </script>
     <style>
         .prev-next {
             position: absolute;
-            bottom: 49px;
+            bottom:34px;
             right: 100px;
         }
 
@@ -70,20 +90,6 @@
                     中长途旅客出行线路规划平台
                     @*<img src="~/img/logo.png" alt="Logo" />*@
                 </div>
-                <!-- <div class="floatright">
-                    <div class="floatleft">
-                        <img src="~/img/img-profile.jpg" alt="Profile Pic" />
-                    </div>
-                    <div class="floatleft marginleft10">
-                        <ul class="inline-ul floatleft">
-                            <li>Hello Admin</li>
-                            <li><a href="#">Config</a></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                        <br />
-                        <span class="small grey">Last Login: 3 hours ago</span>
-                    </div>
-                </div> -->
                 <div class="clear">
                 </div>
             </div>
@@ -108,19 +114,19 @@
                         </li>
                         <li>
                             <a class="menuitem">站点数据集</a>
-                            <ul class="submenu">
+                            @*<ul class="submenu">
                                 <li><a asp-controller="Train" asp-action="Station">火车</a></li>
                                 <li><a asp-controller="Flight" asp-action="Station">飞机</a></li>
                                 <li><a asp-controller="Ship" asp-action="Station">轮船</a></li>
-                            </ul>
+                            </ul>*@
                         </li>
                         <li>
                             <a class="menuitem">线路数据集</a>
-                            <ul class="submenu">
+                            @*<ul class="submenu">
                                 <li><a asp-controller="Train" asp-action="Line">火车</a></li>
                                 <li><a asp-controller="Flight" asp-action="Line">飞机</a></li>
                                 <li><a asp-controller="Ship" asp-action="Line">轮船</a></li>
-                            </ul>
+                            </ul>*@
                         </li>
                     </ul>
                 </div>
