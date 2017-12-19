@@ -52,6 +52,7 @@ namespace paperProject
             Mapper.Initialize(cfg=>{
                 cfg.CreateMap<Train,TrainView>();
                 cfg.CreateMap<City,CityView>();
+                cfg.CreateMap<SearchLine,SearchLineView>();
             });
         }
     }

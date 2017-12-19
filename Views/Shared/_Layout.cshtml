@@ -70,9 +70,12 @@
         });
     </script>
     <style>
+        body {
+            font-size:15px;
+        }
         .prev-next {
             position: absolute;
-            bottom:34px;
+            bottom: 1px;
             right: 100px;
         }
 
@@ -114,18 +117,18 @@
                         </li>
                         <li>
                             <a class="menuitem">站点数据集</a>
-                            @*<ul class="submenu">
-                                <li><a asp-controller="Train" asp-action="Station">火车</a></li>
-                                <li><a asp-controller="Flight" asp-action="Station">飞机</a></li>
-                                <li><a asp-controller="Ship" asp-action="Station">轮船</a></li>
-                            </ul>*@
+                            <ul class="submenu">
+                                <li><a asp-controller="Train" asp-action="Station">火车站点数据</a></li>
+                                <li><a asp-controller="Flight" asp-action="Station">飞机站点数据</a></li>
+                                <li><a asp-controller="Ship" asp-action="Station">轮船站点数据</a></li>
+                            </ul>
                         </li>
                         <li>
                             <a class="menuitem">线路数据集</a>
                             @*<ul class="submenu">
-                                <li><a asp-controller="Train" asp-action="Line">火车</a></li>
-                                <li><a asp-controller="Flight" asp-action="Line">飞机</a></li>
-                                <li><a asp-controller="Ship" asp-action="Line">轮船</a></li>
+                                <li><a asp-controller="Train" asp-action="Line">火车线路数据</a></li>
+                                <li><a asp-controller="Flight" asp-action="Line">飞机线路数据</a></li>
+                                <li><a asp-controller="Ship" asp-action="Line">轮船线路数据</a></li>
                             </ul>*@
                         </li>
                     </ul>

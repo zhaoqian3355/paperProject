@@ -5,6 +5,9 @@ namespace paperProject.ViewModels
         public int Id{get;set;}
         public string from_station_name{get;set;}
         public string from_train_code{get;set;}
+        public string from_time { get; set; }
+        public string from_train_type { get; set; }
+        public string to_time { get; set; }
         public string change_station_name{get;set;}
         public string change_train_code{get;set;}
         public string to_station_name{get;set;}
@@ -12,5 +15,11 @@ namespace paperProject.ViewModels
         public string all_time { get; set; }
         public string change_time { get; set; }
         public int change_times { get; set; }
+        public string vehicle_type { get; set; }
+
+        public SearchLineView()
+        {
+            change_times=1;            
+        }
     }
 }

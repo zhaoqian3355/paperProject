@@ -27,6 +27,7 @@ namespace paperProject.Controllers
             using (var db = new PaperProjectContext())
             {
                 flightList = db.Flight.Take(page).ToList();
+                
             }
 
             return Json(flightList);

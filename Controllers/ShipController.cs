@@ -1,6 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using paperProject.Models;
 using System.Diagnostics;
+using System.Collections.Generic;
+using paperProject.Services;
+using AutoMapper;
+using paperProject.ViewModels;
+using System;
+using System.Linq;
 
 namespace paperProject.Controllers
 {
@@ -11,28 +17,48 @@ namespace paperProject.Controllers
             return View();
         }
 
+        public IActionResult Line()
+        {
+            return View();
+        }
+        public IActionResult LineData(int page)
+        {
+            var shipList = new List<Ship>();
+            using (var db = new PaperProjectContext())
+            {
+                shipList = db.Ship.Take(page).ToList();
+            }
+
+            return Json(shipList);
+        }
         public IActionResult Station()
         {
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult StationData(int page)
         {
-            ViewData["Message"] = "Your application description page.";
+            var cityList = new List<CityView>();
+            try
+            {
+                using (var db = new PaperProjectContext())
+                {
+                    var list = db.City.ToList();
+                    cityList=Mapper.Map<List<CityView>>(list);
+                    cityList.ForEach(k =>
+                    {
+                        var ship=db.Ship.FirstOrDefault(p=>p.from_city==k.CityName);
+                        if(ship!=null)
+                            k.StationName = ship.from_dock_name;
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
 
-            return View();
-        }
+            }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return Json(cityList.Where(k=>!string.IsNullOrEmpty(k.StationName)).Take(10).ToList());
         }
     }
 }

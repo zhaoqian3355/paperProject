@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "轮船线路";
+}
+<table class="data display datatable" id="example">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>船名</th>
+            <th>出港码头</th>
+            <th>出港时间</th>
+            <th>到港码头</th>
+            <th>航线</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script>
+    $.ajax({
+        url: "/Ship/LineData",
+        type: "GET",
+        data: {page:10},
+        success: function (param) {
+            $("#example tbody").empty();
+            for (var i = 0; i < param.length; i++) { 
+                var str = "";
+                var item = param[i];
+                if (i % 2 == 0) {
+                    str += '<tr class="odd">';
+                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + item.ship_name + '</td>';
+                    str += '            <td class="center">' + item.from_dock_name + '</td>';
+                    str += '            <td class="center">' + item.from_time + '</td>';
+                    str += '            <td class="center">' + item.to_dock_name + '</td>';
+                    str += '            <td class="center">' + item.ship_line + '</td>';
+                    str += '</tr>';
+                } else { 
+                    str += '<tr class="even">';
+                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + item.ship_name + '</td>';
+                    str += '            <td class="center">' + item.from_dock_name + '</td>';
+                    str += '            <td class="center">' + item.from_time + '</td>';
+                    str += '            <td class="center">' + item.to_dock_name + '</td>';
+                    str += '            <td class="center">' + item.ship_line + '</td>';
+                    str += '</tr>';
+                }
+                $("#example tbody").append(str);
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+</script>

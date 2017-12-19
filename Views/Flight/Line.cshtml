@@ -19,7 +19,7 @@
 </table>
 <script>
     $.ajax({
-        url: "/Line/SearchData",
+        url: "/Flight/LineData",
         type: "GET",
         data: {page:10},
         success: function (param) {
@@ -34,8 +34,8 @@
                     str += '            <td class="center">' + item.apbn + '</td>';
                     str += '            <td class="center">' + item.dcn + '</td>';
                     str += '            <td class="center">' + item.dpbn + '</td>';
-                    str += '            <td class="center">' + item.at + '</td>';
-                    str += '            <td class="center">' + item.dt + '</td>';
+                    str += '            <td class="center">' + item.at.substring(item.at.indexOf("T")+1) + '</td>';
+                    str += '            <td class="center">' + item.dt.substring(item.dt.indexOf("T") + 1) + '</td>';
                     str += '            <td class="center">' + item.lp + '</td>';
                     str += '</tr>';
                 } else { 
@@ -45,8 +45,8 @@
                     str += '            <td class="center">' + item.apbn + '</td>';
                     str += '            <td class="center">' + item.dcn + '</td>';
                     str += '            <td class="center">' + item.dpbn + '</td>';
-                    str += '            <td class="center">' + item.at + '</td>';
-                    str += '            <td class="center">' + item.dt + '</td>';
+                    str += '            <td class="center">' + item.at.substring(item.at.indexOf("T") + 1) + '</td>';
+                    str += '            <td class="center">' + item.dt.substring(item.dt.indexOf("T") + 1) + '</td>';
                     str += '            <td class="center">' + item.lp + '</td>';
                     str += '</tr>';
                 }
