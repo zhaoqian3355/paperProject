@@ -1,0 +1,196 @@
+﻿@{
+    ViewData["Title"] = "线路查询";
+    Layout = "~/Views/Shared/_Layout4.cshtml";
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //setupTinyMCE();
+        //setupProgressbar('progress-bar');
+        setupDialogBox('dialog', 'opener');
+        //$('input[type="checkbox"]').fancybutton();
+        //$('input[type="radio"]').fancybutton();
+        $("#example_info").text("1 到 10 条");
+        $("#example_length").html('<label>显示 <select size="1" name="example_length"><option value="4" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> 条</label>');
+    });
+</script>
+
+<style>
+    .search-row {
+        line-height: 35px;
+    }
+
+        .search-row select {
+            width: 80px;
+            height: 25px;
+        }
+
+        .search-row input, label {
+            width: 100px;
+        }
+</style>
+
+<div class="search-row">
+    <label>
+        出发城市：
+        <select>
+            <option>辽阳</option>
+        </select>
+    </label>
+    <label>
+        出发站点：
+    </label>
+    <label><input type="checkbox" />全部</label>
+    <label><input type="checkbox" />辽阳</label>
+</div>
+<div class="search-row">
+    <label>
+        目的城市：
+        <select>
+            <option>北京</option>
+        </select>
+    </label>
+    <label>
+        目的站点：
+    </label>
+    <label><input type="checkbox" />全部</label>
+    <input type="checkbox" />北京
+    <input type="checkbox" />北京东
+    <input type="checkbox" />北京南
+    <input type="checkbox" />北京西
+    <input type="checkbox" />北京北
+</div>
+<div class="search-row">
+    <label>
+        出行方式：
+    </label>
+    <input type="checkbox" />任意
+    <input type="checkbox" />火车
+    <input type="checkbox" />高铁
+    <input type="checkbox" />飞机
+    <input type="checkbox" />轮船
+</div>
+<div class="search-row">
+    <label>
+        换乘选择：
+    </label>
+    <input name="change_select" type="radio" />任意
+    <input name="change_select" type="radio" />同站换乘
+    <input name="change_select" type="radio" />同类方式换乘
+    <input name="change_select" type="radio" />飞机
+    <input name="change_select" type="radio" />轮船
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label>
+        最多换乘次数：
+    </label>
+    <select>
+        <option>任意</option>
+        <option>1次</option>
+        <option>2次</option>
+    </select>
+</div>
+<div class="search-row" id="startDate">
+    <label>
+        出行时间：
+    </label>
+    <select>
+        <option>任意</option>
+        <option>08:00以后</option>
+        <option>09:00以后</option>
+    </select>
+    <label>
+        到达时间：
+    </label>
+    <select>
+        <option>任意</option>
+        <option>18:00以前</option>
+        <option>19:00以前</option>
+    </select>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label>
+        换乘最长等待时间：
+    </label>
+    <select>
+        <option>任意</option>
+        <option>12小时内</option>
+        <option>6小时内</option>
+    </select>
+</div>
+
+<div class="search-row">
+    <label>
+        首要参考值：
+    </label>
+    <input name="condition_select" type="radio" />综合
+    <input name="condition_select" type="radio" />出行总花费
+    <input name="condition_select" type="radio" />出行总时间
+    <input name="condition_select" type="radio" />换乘时间
+    <input name="condition_select" type="radio" />换乘次数
+</div>
+
+<table class="data display datatable" id="example">
+    <thead>
+        <tr>
+            @*<th></th>*@
+            <th style="width: 60px;">序号</th>
+            <th style="width: 100px;">出发站</th>
+            <th style="width: 60px;">线路</th>
+            <th style="width: 100px;">中转站</th>
+            <th style="width: 60px;">线路</th>
+            <th style="width: 60px;">目的站</th>
+            <th style="width: 60px;">出行总时间</th>
+            <th style="width: 60px;">换乘时间</th>
+            <th style="width: 60px;">换乘次数</th>
+            @*<th style="width: 60px;">价格</th>*@
+
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<script>
+    $.ajax({
+        url: "/Line/SearchData",
+        type: "GET",
+        data: { page: 10, type: 6 },
+        success: function (param) {
+            $("#example tbody").empty();
+            for (var i = 0; i < param.length; i++) {
+                var str = "";
+                var item = param[i];
+                if (i % 2 == 0) {
+                    str += '<tr class="odd">';
+                    //str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
+                    str += '            <td class="center">' + (i + 1)  + '</td>';
+                    str += '            <td class="center">' + item.from_station_name + '</td>';
+                    str += '            <td class="center">' + item.from_train_code + '</td>';
+                    str += '            <td class="center">' + item.change_station_name + '</td>';
+                    str += '            <td class="center">' + item.change_train_code + '</td>';
+                    str += '            <td class="center">' + item.to_station_name + '</td>';
+                    str += '            <td class="center">' + item.all_time + '</td>';
+                    str += '            <td class="center">' + item.change_time + '</td>';
+                    str += '            <td class="center">' + item.change_times + '</td>';
+                    //str += '            <td class="center">' + item.price + '</td>';
+                    str += '</tr>';
+                } else {
+                    str += '<tr class="even">';
+                    //str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
+                    str += '            <td class="center">' + (i+1) + '</td>';
+                    str += '            <td class="center">' + item.from_station_name + '</td>';
+                    str += '            <td class="center">' + item.from_train_code + '</td>';
+                    str += '            <td class="center">' + item.change_station_name + '</td>';
+                    str += '            <td class="center">' + item.change_train_code + '</td>';
+                    str += '            <td class="center">' + item.to_station_name + '</td>';
+                    str += '            <td class="center">' + item.all_time + '</td>';
+                    str += '            <td class="center">' + item.change_time + '</td>';
+                    str += '            <td class="center">' + item.change_times + '</td>';
+                    //str += '            <td class="center">' + item.price + '</td>';
+                    str += '</tr>';
+                }
+                $("#example tbody").append(str);
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+</script>

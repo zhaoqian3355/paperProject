@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "线路查询";
-    Layout = "~/Views/Shared/_Layout0.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 
 }
 
@@ -11,8 +11,8 @@
         setupDialogBox('dialog', 'opener');
         //$('input[type="checkbox"]').fancybutton();
         //$('input[type="radio"]').fancybutton();
-        $("#example_info").text("1 到 4 条");
-        $("#example_length").html('<label>显示 <select size="1" name="example_length"><option value="4" selected="selected">4</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> 条</label>');
+        $("#example_info").text("1 到 10 条");
+        $("#example_length").html('<label>显示 <select size="1" name="example_length"><option value="4" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> 条</label>');
     });
 </script>
 
@@ -95,11 +95,19 @@
     <label>
         出行时间：
     </label>
-    <input type="text" id="date-picker1" placeholder="任意" />
+    <select>
+        <option>任意</option>
+        <option>08:00以后</option>
+        <option>09:00以后</option>
+    </select>
     <label>
         到达时间：
     </label>
-    <input type="text" id="date-picker2" placeholder="任意" />
+    <select>
+        <option>任意</option>
+        <option>18:00以前</option>
+        <option>19:00以前</option>
+    </select>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <label>
         换乘最长等待时间：
@@ -132,9 +140,11 @@
             <th>中转站</th>
             <th>线路</th>
             <th>目的站</th>
-            <th>出行总时间</th>
-            <th>换乘时间</th>
-            <th>换乘次数</th>
+            <th style="width: 60px;">出行总时间</th>
+            <th style="width: 60px;">换乘时间</th>
+            <th style="width: 60px;">换乘次数</th>
+            <th style="width: 60px;">价格</th>
+
         </tr>
     </thead>
     <tbody></tbody>
@@ -152,7 +162,7 @@
                 if (i % 2 == 0) {
                     str += '<tr class="odd">';
                     //str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
-                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + (i + 1)  + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
                     str += '            <td class="center">' + item.from_train_code + '</td>';
                     str += '            <td class="center">' + item.change_station_name + '</td>';
@@ -161,11 +171,12 @@
                     str += '            <td class="center">' + item.all_time + '</td>';
                     str += '            <td class="center">' + item.change_time + '</td>';
                     str += '            <td class="center">' + item.change_times + '</td>';
+                    str += '            <td class="center">' + item.price + '</td>';
                     str += '</tr>';
                 } else {
                     str += '<tr class="even">';
                     //str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
-                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + (i+1) + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
                     str += '            <td class="center">' + item.from_train_code + '</td>';
                     str += '            <td class="center">' + item.change_station_name + '</td>';
@@ -174,6 +185,7 @@
                     str += '            <td class="center">' + item.all_time + '</td>';
                     str += '            <td class="center">' + item.change_time + '</td>';
                     str += '            <td class="center">' + item.change_times + '</td>';
+                    str += '            <td class="center">' + item.price + '</td>';
                     str += '</tr>';
                 }
                 $("#example tbody").append(str);

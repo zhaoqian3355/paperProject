@@ -16,6 +16,9 @@ namespace paperProject.ViewModels
         public string change_time { get; set; }
         public int change_times { get; set; }
         public string vehicle_type { get; set; }
+        public string price { get; set; }
+        public int all_minutes { get; set; }
+        public int change_minutes { get; set; }
 
         public SearchLineView()
         {

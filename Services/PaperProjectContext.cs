@@ -11,6 +11,7 @@ namespace paperProject.Services
         public DbSet<Ship> Ship { get; set; }
         public DbSet<TrainStation> TrainStation { get; set; }
         public DbSet<SearchLine> SearchLine { get; set; }
+        public DbSet<SearchLine1> SearchLine1 { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=PaperProject.db");

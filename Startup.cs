@@ -53,6 +53,7 @@ namespace paperProject
                 cfg.CreateMap<Train,TrainView>();
                 cfg.CreateMap<City,CityView>();
                 cfg.CreateMap<SearchLine,SearchLineView>();
+                cfg.CreateMap<SearchLine1, SearchLineView>();
             });
         }
     }

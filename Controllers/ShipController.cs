@@ -43,13 +43,14 @@ namespace paperProject.Controllers
             {
                 using (var db = new PaperProjectContext())
                 {
-                    var list = db.City.ToList();
-                    cityList=Mapper.Map<List<CityView>>(list);
-                    cityList.ForEach(k =>
+                    var list = db.Ship.ToList();
+                    var cities = db.City.ToList();
+                    cityList=Mapper.Map<List<CityView>>(cities);
+                    list.ForEach(k =>
                     {
-                        var ship=db.Ship.FirstOrDefault(p=>p.from_city==k.CityName);
-                        if(ship!=null)
-                            k.StationName = ship.from_dock_name;
+                        var city= cityList.FirstOrDefault(p=>p.CityName.Contains(k.from_city));
+                        if(city != null)
+                            city.StationName = k.from_dock_name;
                     });
                 }
             }
@@ -58,7 +59,7 @@ namespace paperProject.Controllers
 
             }
 
-            return Json(cityList.Where(k=>!string.IsNullOrEmpty(k.StationName)).Take(10).ToList());
+            return Json(cityList.Where(k=>!string.IsNullOrEmpty(k.StationName)).ToList());
         }
     }
 }

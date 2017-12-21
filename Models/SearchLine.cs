@@ -10,5 +10,8 @@ namespace paperProject.Models
         public string to_station_name{get;set;}
         public string all_time { get; set; }
         public string change_time { get; set; }
+        public string price { get; set; }
+        public int all_minutes { get; set; }
+        public int change_minutes { get; set; }
     }
 }
