@@ -125,9 +125,9 @@
     <label>
         首要参考值：
     </label>
-    <input name="condition_select" type="radio" />综合
-    <input name="condition_select" type="radio" />出行总花费
+    @*<input name="condition_select" type="radio" />综合*@
     <input name="condition_select" type="radio" />出行总时间
+    <input name="condition_select" type="radio" />出行总花费
     <input name="condition_select" type="radio" />换乘时间
     <input name="condition_select" type="radio" />换乘次数
 </div>
@@ -163,7 +163,7 @@
                 if (i % 2 == 0) {
                     str += '<tr class="odd">';
                     //str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
-                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + (i + 1) + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
                     str += '            <td class="center">' + item.from_train_code + '</td>';
                     str += '            <td class="center">' + item.change_station_name + '</td>';
@@ -176,7 +176,7 @@
                 } else { 
                     str += '<tr class="even">';
                     //str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
-                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + (i + 1) + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
                     str += '            <td class="center">' + item.from_train_code + '</td>';
                     str += '            <td class="center">' + item.change_station_name + '</td>';

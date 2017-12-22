@@ -17,13 +17,15 @@
 </script>
 
 <style>
-    .search-row{
-        line-height:35px;
+    .search-row {
+        line-height: 35px;
     }
-    .search-row select{
-        width:80px;
-        height:25px;
-    }
+
+        .search-row select {
+            width: 80px;
+            height: 25px;
+        }
+
         .search-row input, label {
             width: 100px;
         }
@@ -69,6 +71,10 @@
     <input type="checkbox" />高铁
     <input type="checkbox" />飞机
     <input type="checkbox" />轮船
+    <label>
+        出行日期：
+    </label>
+    <input type="text" id="date-picker1" placeholder="任意" />
 </div>
 <div class="search-row">
     <label>
@@ -121,9 +127,9 @@
     <label>
         首要参考值：
     </label>
-    <input name="condition_select" type="radio" />综合
-    <input name="condition_select" type="radio" />出行总花费
+    @*<input name="condition_select" type="radio" />综合*@
     <input name="condition_select" type="radio" />出行总时间
+    <input name="condition_select" type="radio" />出行总花费
     <input name="condition_select" type="radio" />换乘时间
     <input name="condition_select" type="radio" />换乘次数
 </div>
@@ -132,33 +138,33 @@
     <thead>
         <tr>
             @*<th></th>*@
-            <th>序号</th>
-            <th>线路</th>
-            <th>出行方式</th>
-            <th>出发站</th>
-            <th>目的站</th>
-            <th>出发时间</th>
-            <th>到达时间</th>
-            <th>出行时间</th>
+            <th style="width: 60px;">序号</th>
+            <th style="width: 60px;">线路</th>
+            <th style="width: 60px;">出行方式</th>
+            <th style="width: 60px;">出发站</th>
+            <th style="width: 60px;">目的站</th>
+            <th style="width: 60px;">出发时间</th>
+            <th style="width: 60px;">到达时间</th>
+            <th style="width: 60px;">出行时间</th>
+            <th style="width: 60px;">价格</th>
         </tr>
     </thead>
-    <tbody>
-    </tbody>
+    <tbody></tbody>
 </table>
 <script>
     $.ajax({
         url: "/Line/SearchData",
         type: "GET",
-        data: { page: 10, type: 1},
+        data: { page: 10, type: 1 },
         success: function (param) {
             $("#example tbody").empty();
-            for (var i = 0; i < param.length; i++) { 
+            for (var i = 0; i < param.length; i++) {
                 var str = "";
                 var item = param[i];
                 if (i % 2 == 0) {
                     str += '<tr class="odd">';
                     //str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
-                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + (i + 1) + '</td>';
                     str += '            <td class="center">' + item.from_train_code + '</td>';
                     str += '            <td class="center">' + item.from_train_type + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
@@ -166,11 +172,12 @@
                     str += '            <td class="center">' + item.from_time + '</td>';
                     str += '            <td class="center">' + item.to_time + '</td>';
                     str += '            <td class="center">' + item.all_time + '</td>';
+                    str += '            <td class="center">' + item.price + '</td>';
                     str += '</tr>';
-                } else { 
+                } else {
                     str += '<tr class="even">';
                     //str += '            <td class="center"><select size="1" name="example_length"><option value="4" selected="selected">任意</option><option value="25">一小时以内</option><option value="50">2小时以内</option></select></td>';
-                    str += '            <td class="center">' + item.id + '</td>';
+                    str += '            <td class="center">' + (i + 1) + '</td>';
                     str += '            <td class="center">' + item.from_train_code + '</td>';
                     str += '            <td class="center">' + item.from_train_type + '</td>';
                     str += '            <td class="center">' + item.from_station_name + '</td>';
@@ -178,6 +185,7 @@
                     str += '            <td class="center">' + item.from_time + '</td>';
                     str += '            <td class="center">' + item.to_time + '</td>';
                     str += '            <td class="center">' + item.all_time + '</td>';
+                    str += '            <td class="center">' + item.price + '</td>';
                     str += '</tr>';
                 }
                 $("#example tbody").append(str);

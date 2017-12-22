@@ -14,7 +14,7 @@ for item in data["fis"]:
         temp.append(item["apbn"]+"-"+train["fs"]["sn"])
         temp.append(train["num"])
         temp.append(train["ts"]["sn"])
-        t1=datetime.strptime(train["tt"],"%Y-%m-%d %H:%M:%S")-datetime.strptime(item["at"],"%Y-%m-%d %H:%M:%S")
+        t1=datetime.strptime(train["tt"],"%Y-%m-%d %H:%M:%S")-datetime.strptime(item["dt"],"%Y-%m-%d %H:%M:%S")
         temp.append(str(t1.seconds//3600)+"时"+str((t1.seconds-t1.seconds//3600*3600)//60)+"分")
         t2=datetime.strptime(train["ft"],"%Y-%m-%d %H:%M:%S")-datetime.strptime(item["at"],"%Y-%m-%d %H:%M:%S")
         temp.append(str(t2.seconds//3600)+"时"+str((t2.seconds-t2.seconds//3600*3600)//60)+"分")

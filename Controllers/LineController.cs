@@ -68,11 +68,11 @@ namespace paperProject.Controllers
                 // 火车直达
                 cityList = new List<SearchLineView>()
                 {
-                    new SearchLineView{Id=4,from_station_name="鞍山",from_train_code="K96",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K96",all_time="11时11分",change_time="无",change_times=0,from_time="00:29",to_time="11:40" },
-                    new SearchLineView{Id=2,from_station_name="鞍山西",from_train_code="D52",from_train_type="动车",change_station_name="无",to_station_name="北京",to_station_code="D52",all_time="5时2分",change_time="无" ,change_times=0,from_time="10:23",to_time="15:25"},
-                    new SearchLineView{Id=3,from_station_name="鞍山",from_train_code="K55",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K55",all_time="10时34分",change_time="无",change_times=0,from_time="15:50",to_time="02:24" },
-                    new SearchLineView{Id=1,from_station_name="鞍山西",from_train_code="G396",from_train_type="高铁",change_station_name="无",to_station_name="北京南",to_station_code="G396",all_time="4时23分",change_time="无" ,change_times=0,from_time="18:07",to_time="22:30"},
-                    new SearchLineView{Id=5,from_station_name="鞍山",from_train_code="2550",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="2550",all_time="13时12分",change_time="无" ,change_times=0,from_time="22:58",to_time="12:10"}
+                    new SearchLineView{Id=4,from_station_name="鞍山",from_train_code="K96",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K96",all_time="11时11分",change_time="无",change_times=0,from_time="00:29",to_time="11:40",price="100" },
+                    new SearchLineView{Id=2,from_station_name="鞍山西",from_train_code="D52",from_train_type="动车",change_station_name="无",to_station_name="北京",to_station_code="D52",all_time="5时2分",change_time="无" ,change_times=0,from_time="10:23",to_time="15:25",price="220"},
+                    new SearchLineView{Id=3,from_station_name="鞍山",from_train_code="K55",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K55",all_time="10时34分",change_time="无",change_times=0,from_time="15:50",to_time="02:24",price="130" },
+                    new SearchLineView{Id=1,from_station_name="鞍山西",from_train_code="G396",from_train_type="高铁",change_station_name="无",to_station_name="北京南",to_station_code="G396",all_time="4时23分",change_time="无" ,change_times=0,from_time="18:07",to_time="22:30",price="340" },
+                    new SearchLineView{Id=5,from_station_name="鞍山",from_train_code="2550",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="2550",all_time="13时12分",change_time="无" ,change_times=0,from_time="22:58",to_time="12:10",price="90"}
                 }.OrderBy(k=>k.Id).ToList();
             }else if(type==2)
             {
@@ -80,7 +80,8 @@ namespace paperProject.Controllers
                 using (var db = new PaperProjectContext())
                 {
                     var list = db.SearchLine.Where(k=>!k.from_station_name.Contains("大连")).OrderBy(k=>k.price).ToList();
-                    cityList=Mapper.Map<List<SearchLineView>>(list);
+                    list.ForEach(k => { k.price = k.price.Substring(0, 3); });
+                    cityList =Mapper.Map<List<SearchLineView>>(list);
                 }
             }
             else if (type == 3)
@@ -89,6 +90,7 @@ namespace paperProject.Controllers
                 using (var db = new PaperProjectContext())
                 {
                     var list = db.SearchLine.OrderBy(k=>k.all_minutes).ToList();
+                    list.ForEach(k => { k.price = k.price.Substring(0, 3); });
                     cityList = Mapper.Map<List<SearchLineView>>(list);
                 }
             }
@@ -98,6 +100,11 @@ namespace paperProject.Controllers
                 using (var db = new PaperProjectContext())
                 {
                     var list = db.SearchLine.OrderBy(k => k.change_minutes).ToList();
+                    list.ForEach(k => { k.price = k.price.Substring(0, 3); });
+                    list[0].price = "763";
+                    list[1].price = "786";
+                    list[2].price = "754";
+                    list[9].price = "463";
                     cityList = Mapper.Map<List<SearchLineView>>(list);
                 }
             }
@@ -106,7 +113,17 @@ namespace paperProject.Controllers
                 // 综合
                 using (var db = new PaperProjectContext())
                 {
-                    var list = db.SearchLine.Where(k=>k.from_station_name.Contains("大连")).ToList();
+                    var list = db.SearchLine.Where(k=>k.from_station_name.Contains("大连")&&k.change_minutes<360).OrderBy(k=>k.all_minutes).ToList();
+                    list[0].price = "786";
+                    list[1].price = "763";
+                    list[2].price = "754";
+                    list[3].price = "557";
+                    list[4].price = "606";
+                    list[5].price = "503";
+                    list[6].price = "517";
+                    list[7].price = "453";
+                    list[8].price = "498";
+                    list[9].price = "448";
                     cityList = Mapper.Map<List<SearchLineView>>(list);
                 }
             }
@@ -115,15 +132,22 @@ namespace paperProject.Controllers
                 // 综合
                 cityList = new List<SearchLineView>()
                 {
-                    new SearchLineView{Id=4,from_station_name="辽阳",from_train_code="K96",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K96",all_time="11时33分",change_time="无",change_train_code="无",change_times=0,from_time="00:29",to_time="11:40" },
-                    new SearchLineView{Id=2,from_station_name="辽阳",from_train_code="D52",from_train_type="动车",change_station_name="无",to_station_name="北京",to_station_code="D52",all_time="5时22分",change_time="无",change_train_code="无" ,change_times=0,from_time="10:23",to_time="15:25"},
-                    new SearchLineView{Id=3,from_station_name="辽阳",from_train_code="K55",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K55",all_time="10时02分",change_time="无",change_train_code="无",change_times=0,from_time="15:50",to_time="02:24" },
-                    new SearchLineView{Id=1,from_station_name="辽阳",from_train_code="4216",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="4216",all_time="14时04分",change_time="无",change_train_code="无" ,change_times=0,from_time="18:07",to_time="22:30"}
+
+                    new SearchLineView{Id=2,from_station_name="辽阳",from_train_code="D52",from_train_type="动车",change_station_name="无",to_station_name="北京",to_station_code="D52",all_time="5时22分",change_time="无",change_train_code="无" ,change_times=0,from_time="10:23",to_time="15:25",price="230" },
+                    new SearchLineView{Id=3,from_station_name="辽阳",from_train_code="K55",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K55",all_time="10时02分",change_time="无",change_train_code="无",change_times=0,from_time="15:50",to_time="02:24" ,price="100" },
+                    new SearchLineView{Id=4,from_station_name="辽阳",from_train_code="K96",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K96",all_time="11时33分",change_time="无",change_train_code="无",change_times=0,from_time="00:29",to_time="11:40",price="100" },
+                    new SearchLineView{Id=1,from_station_name="辽阳",from_train_code="4216",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="4216",all_time="14时04分",change_time="无",change_train_code="无" ,change_times=0,from_time="18:07",to_time="22:30",price="80" }
                 };
                 using (var db = new PaperProjectContext())
                 {
                     var list = db.SearchLine1.ToList();
-                    cityList.AddRange(Mapper.Map<List<SearchLineView>>(list));
+                    list[0].price = "300";
+                    list[1].price = "320";
+                    list[2].price = "350";
+                    list[3].price = "380";
+                    list[4].price = "400";
+                    list[5].price = "410";
+                    cityList.AddRange(Mapper.Map<List<SearchLineView>>(list.OrderBy(k => k.all_minutes).ToList()));
                 }
             }
 

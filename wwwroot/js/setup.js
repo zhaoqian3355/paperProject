@@ -439,12 +439,13 @@ function setDatePicker(containerElement) {
         buttonImage: "/img/calendar.gif",
         buttonImageOnly: true,
         showSecond: true,
-        dateFormat: 'dd/mm/yy',
+        dateFormat: 'yy/mm/dd',
         timeFormat: 'hh:mm:ss',
         stepHour: 2,
         stepMinute: 10,
         stepSecond: 10
     });
+    datePicker.datepicker("setDate", new Date());
 }
 //setup progressbar
 function setupProgressbar(containerElement) {
