@@ -49,6 +49,11 @@ namespace paperProject.Controllers
             return View();
         }
 
+        public IActionResult Search7()
+        {
+            return View();
+        }
+
         public IActionResult SearchData(int page, int type)
         {
             var cityList = new List<SearchLineView>();
@@ -129,7 +134,7 @@ namespace paperProject.Controllers
             }
             else if (type == 6)
             {
-                // 综合
+                // 辽阳到北京
                 cityList = new List<SearchLineView>()
                 {
 
@@ -140,6 +145,48 @@ namespace paperProject.Controllers
                 };
                 using (var db = new PaperProjectContext())
                 {
+                    var list = db.SearchLine1.ToList();
+                    list[0].price = "300";
+                    list[1].price = "320";
+                    list[2].price = "350";
+                    list[3].price = "380";
+                    list[4].price = "400";
+                    list[5].price = "410";
+                    cityList.AddRange(Mapper.Map<List<SearchLineView>>(list.OrderBy(k => k.all_minutes).ToList()));
+                }
+            }
+            else if (type == 7)
+            {
+                // 大连到烟台轮船
+                
+                cityList = new List<SearchLineView>()
+                {
+                  
+                    new SearchLineView{Id=2,from_station_name="辽阳",from_train_code="D52",from_train_type="动车",change_station_name="无",to_station_name="北京",to_station_code="D52",all_time="5时22分",change_time="无",change_train_code="无" ,change_times=0,from_time="10:23",to_time="15:25",price="230" },
+                    new SearchLineView{Id=3,from_station_name="辽阳",from_train_code="K55",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K55",all_time="10时02分",change_time="无",change_train_code="无",change_times=0,from_time="15:50",to_time="02:24" ,price="100" },
+                    new SearchLineView{Id=4,from_station_name="辽阳",from_train_code="K96",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K96",all_time="11时33分",change_time="无",change_train_code="无",change_times=0,from_time="00:29",to_time="11:40",price="100" },
+                    new SearchLineView{Id=1,from_station_name="辽阳",from_train_code="4216",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="4216",all_time="14时04分",change_time="无",change_train_code="无" ,change_times=0,from_time="18:07",to_time="22:30",price="80" }
+                };
+                using (var db = new PaperProjectContext())
+                {
+                    var ships = db.Ship.Take(10).ToList();
+                    ships.ForEach(k=> {
+                        var line = new SearchLineView { Id = 2,
+                            from_station_name = "辽阳",
+                            from_train_code = "D52",
+                            from_train_type = "动车",
+                            change_station_name = "无",
+                            to_station_name = "北京",
+                            to_station_code = "D52",
+                            all_time = "5时22分",
+                            change_time = "无",
+                            change_train_code = "无",
+                            change_times = 0,
+                            from_time = "10:23",
+                            to_time = "15:25",
+                            price = "230" };
+                    });
+                    cityList.Add();
                     var list = db.SearchLine1.ToList();
                     list[0].price = "300";
                     list[1].price = "320";
