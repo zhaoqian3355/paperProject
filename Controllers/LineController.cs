@@ -158,43 +158,200 @@ namespace paperProject.Controllers
             else if (type == 7)
             {
                 // 大连到烟台轮船
-                
-                cityList = new List<SearchLineView>()
-                {
-                  
-                    new SearchLineView{Id=2,from_station_name="辽阳",from_train_code="D52",from_train_type="动车",change_station_name="无",to_station_name="北京",to_station_code="D52",all_time="5时22分",change_time="无",change_train_code="无" ,change_times=0,from_time="10:23",to_time="15:25",price="230" },
-                    new SearchLineView{Id=3,from_station_name="辽阳",from_train_code="K55",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K55",all_time="10时02分",change_time="无",change_train_code="无",change_times=0,from_time="15:50",to_time="02:24" ,price="100" },
-                    new SearchLineView{Id=4,from_station_name="辽阳",from_train_code="K96",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="K96",all_time="11时33分",change_time="无",change_train_code="无",change_times=0,from_time="00:29",to_time="11:40",price="100" },
-                    new SearchLineView{Id=1,from_station_name="辽阳",from_train_code="4216",from_train_type="火车",change_station_name="无",to_station_name="北京",to_station_code="4216",all_time="14时04分",change_time="无",change_train_code="无" ,change_times=0,from_time="18:07",to_time="22:30",price="80" }
-                };
                 using (var db = new PaperProjectContext())
                 {
                     var ships = db.Ship.Take(10).ToList();
-                    ships.ForEach(k=> {
-                        var line = new SearchLineView { Id = 2,
-                            from_station_name = "辽阳",
-                            from_train_code = "D52",
-                            from_train_type = "动车",
-                            change_station_name = "无",
-                            to_station_name = "北京",
-                            to_station_code = "D52",
-                            all_time = "5时22分",
-                            change_time = "无",
-                            change_train_code = "无",
-                            change_times = 0,
-                            from_time = "10:23",
-                            to_time = "15:25",
-                            price = "230" };
-                    });
-                    cityList.Add();
-                    var list = db.SearchLine1.ToList();
-                    list[0].price = "300";
-                    list[1].price = "320";
-                    list[2].price = "350";
-                    list[3].price = "380";
-                    list[4].price = "400";
-                    list[5].price = "410";
-                    cityList.AddRange(Mapper.Map<List<SearchLineView>>(list.OrderBy(k => k.all_minutes).ToList()));
+                    var line0 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[0].from_dock_name,
+                        from_train_code = ships[0].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[0].to_dock_name,
+                        to_station_code = ships[0].ship_name,
+                        all_time = "6时30分",
+                        all_minutes = 390,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "20:30",
+                        to_time = "03:00",
+                        price = "180"
+                    };
+                    var line1 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[1].from_dock_name,
+                        from_train_code = ships[1].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[1].to_dock_name,
+                        to_station_code = ships[1].ship_name,
+                        all_time = "7时",
+                        all_minutes = 420,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "09:30",
+                        to_time = "16:30",
+                        price = "140"
+                    };
+                    var line2 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[2].from_dock_name,
+                        from_train_code = ships[2].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[2].to_dock_name,
+                        to_station_code = ships[2].ship_name,
+                        all_time = "7时",
+                        all_minutes = 420,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "13:30",
+                        to_time = "20:00",
+                        price = "180"
+                    };
+                    var line3 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[3].from_dock_name,
+                        from_train_code = ships[3].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[3].to_dock_name,
+                        to_station_code = ships[3].ship_name,
+                        all_time = "6时30分",
+                        all_minutes = 390,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "22:00",
+                        to_time = "04:30",
+                        price = "180"
+                    };
+                    var line4 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[4].from_dock_name,
+                        from_train_code = ships[4].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[4].to_dock_name,
+                        to_station_code = ships[4].ship_name,
+                        all_time = "7时",
+                        all_minutes = 420,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "01:30",
+                        to_time = "08:00",
+                        price = "180"
+                    };
+                    var line5 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[5].from_dock_name,
+                        from_train_code = ships[5].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[5].to_dock_name,
+                        to_station_code = ships[5].ship_name,
+                        all_time = "7时",
+                        all_minutes = 420,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "09:30",
+                        to_time = "16:30",
+                        price = "180"
+                    };
+                    var line6 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[6].from_dock_name,
+                        from_train_code = ships[6].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[6].to_dock_name,
+                        to_station_code = ships[6].ship_name,
+                        all_time = "7时",
+                        all_minutes = 420,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "12:30",
+                        to_time = "19:30",
+                        price = "180"
+                    };
+                    var line7 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[7].from_dock_name,
+                        from_train_code = ships[7].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[7].to_dock_name,
+                        to_station_code = ships[7].ship_name,
+                        all_time = "6时30分",
+                        all_minutes = 390,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "22:30",
+                        to_time = "05:30",
+                        price = "180"
+                    };             
+                    var line8 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[8].from_dock_name,
+                        from_train_code = ships[8].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[8].to_dock_name,
+                        to_station_code = ships[8].ship_name,
+                        all_time = "6时30分",
+                        all_minutes = 390,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "10:23",
+                        to_time = "15:25",
+                        price = "180"
+                    };
+                    var line9 = new SearchLineView
+                    {
+                        Id = 2,
+                        from_station_name = ships[9].from_dock_name,
+                        from_train_code = ships[9].ship_name,
+                        from_train_type = "渡轮",
+                        change_station_name = "无",
+                        to_station_name = ships[9].to_dock_name,
+                        to_station_code = ships[9].ship_name,
+                        all_time = "6时30分",
+                        all_minutes = 390,
+                        change_time = "无",
+                        change_train_code = "无",
+                        change_times = 0,
+                        from_time = "14:30",
+                        to_time = "21:30",
+                        price = "180"
+                    };
+                    cityList.Add(line0);
+                    cityList.Add(line1);
+                    cityList.Add(line2);
+                    cityList.Add(line3);
+                    cityList.Add(line4);
+                    cityList.Add(line5);
+                    cityList.Add(line6);
+                    cityList.Add(line7);
+                    cityList.Add(line8);
+                    cityList.Add(line9);
+                    cityList=cityList.OrderBy(k => k.all_minutes).ToList();
                 }
             }
 
